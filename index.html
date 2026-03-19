@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Innermost Bond Blueprint</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --plum:#5a1848;--teal:#5896a5;--violet:#b35dba;--white:#ffffff;
+  --plum-deep:#3d1030;--teal-bg:#edf4f6;--violet-bg:#f7eef8;
+  --off-white:#faf8fb;--border:#e2d8e8;--muted:#8a7090;--ink:#2a1030;
+}
+html,body{width:100%;background:var(--off-white)}
+body{font-family:'DM Sans',sans-serif;color:var(--ink);display:flex;justify-content:center;padding:40px 20px 60px}
+.app{width:100%;max-width:600px}
+.screen{display:none;animation:fadeUp 0.5s ease forwards}
+.screen.active{display:block}
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+
+.brand-mark{font-size:11px;letter-spacing:0.15em;text-transform:uppercase;color:var(--teal);margin-bottom:20px;font-weight:500}
+.intro-title{font-family:'Playfair Display',serif;font-size:34px;line-height:1.22;margin-bottom:18px;font-weight:400;color:var(--plum)}
+.intro-title em{font-style:italic;color:var(--violet)}
+.intro-body{font-size:15px;line-height:1.9;color:var(--muted);margin-bottom:30px}
+.intro-quote{font-size:14px;color:var(--plum);padding:16px 20px;border-left:2.5px solid var(--violet);background:var(--violet-bg);border-radius:0 10px 10px 0;margin-bottom:34px;font-family:'Playfair Display',serif;font-style:italic;line-height:1.8}
+.btn-start{width:100%;padding:17px;background:var(--plum);color:var(--white);border:none;border-radius:12px;font-family:'DM Sans',sans-serif;font-size:16px;font-weight:500;cursor:pointer;transition:background 0.2s}
+.btn-start:hover{background:var(--plum-deep)}
+
+.progress-wrap{margin-bottom:32px}
+.progress-meta{display:flex;justify-content:space-between;margin-bottom:10px}
+.progress-step{font-size:12px;color:var(--muted)}
+.progress-pct{font-size:12px;font-weight:500;color:var(--violet)}
+.progress-track{height:3px;background:var(--border);border-radius:2px;overflow:hidden}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--plum),var(--violet));border-radius:2px;transition:width 0.4s ease}
+
+.q-pillar{font-size:11px;letter-spacing:0.1em;text-transform:uppercase;font-weight:500;margin-bottom:12px}
+.pillar-you,.pillar-mind{color:var(--teal)}
+.pillar-body{color:var(--plum)}
+.pillar-soul{color:var(--violet)}
+.q-text{font-family:'Playfair Display',serif;font-size:23px;line-height:1.4;margin-bottom:10px;font-weight:400;color:var(--plum)}
+.q-sub{font-size:13px;color:var(--muted);margin-bottom:24px;line-height:1.65}
+
+.choices{display:flex;flex-direction:column;gap:9px;margin-bottom:24px}
+.choice{padding:14px 18px;border:1px solid var(--border);border-radius:11px;cursor:pointer;font-size:14px;line-height:1.6;color:var(--ink);background:var(--white);transition:all 0.18s;text-align:left;font-family:'DM Sans',sans-serif;width:100%}
+.choice:hover{border-color:var(--teal);background:var(--teal-bg)}
+.choice.selected{border-color:var(--violet);background:var(--violet-bg);color:var(--plum)}
+
+.open-textarea{width:100%;padding:14px 16px;border:1px solid var(--border);border-radius:11px;font-family:'DM Sans',sans-serif;font-size:14px;color:var(--ink);background:var(--white);resize:none;outline:none;line-height:1.65;transition:border 0.2s;margin-bottom:24px}
+.open-textarea:focus{border-color:var(--teal)}
+.open-textarea::placeholder{color:#c0b8ca}
+
+.q-nav{display:flex;gap:10px}
+.btn-back{padding:13px 22px;border:1px solid var(--border);border-radius:11px;background:transparent;font-size:14px;color:var(--muted);cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.2s}
+.btn-back:hover{border-color:var(--plum);color:var(--plum)}
+.btn-next{flex:1;padding:14px;background:var(--plum);color:var(--white);border:none;border-radius:11px;font-size:15px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;transition:background 0.2s}
+.btn-next:hover{background:var(--plum-deep)}
+.btn-next:disabled{opacity:0.28;cursor:not-allowed}
+
+.result-eyebrow{font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--teal);margin-bottom:12px;font-weight:500}
+.result-name{font-family:'Playfair Display',serif;font-size:30px;font-weight:400;line-height:1.3;margin-bottom:14px;color:var(--plum)}
+.result-essence{font-size:14px;color:#5a4060;line-height:1.85;padding-bottom:22px;border-bottom:1px solid var(--border);margin-bottom:22px}
+
+.reflection-block{background:var(--violet-bg);border-radius:12px;padding:16px 20px;margin-bottom:22px;border:1px solid #e8d5ee}
+.reflection-label{font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--violet);margin-bottom:10px;font-weight:500}
+.reflection-item{font-size:13px;color:#5a3060;line-height:1.75;margin-bottom:8px;padding-left:12px;border-left:2px solid var(--violet)}
+.reflection-item:last-child{margin-bottom:0}
+.reflection-item span{font-weight:500;display:block;font-size:11px;text-transform:uppercase;letter-spacing:0.06em;color:var(--violet);margin-bottom:2px}
+
+.bp-section{margin-bottom:10px;border:1px solid var(--border);border-radius:13px;overflow:hidden;background:var(--white)}
+.bp-toggle{width:100%;padding:15px 18px;display:flex;align-items:center;justify-content:space-between;background:transparent;border:none;cursor:pointer;text-align:left;font-family:'DM Sans',sans-serif;transition:background 0.15s}
+.bp-toggle:hover{background:var(--off-white)}
+.bp-toggle-left{display:flex;align-items:center;gap:13px}
+.bp-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.dot-mind{background:var(--teal)}
+.dot-body{background:var(--plum)}
+.dot-soul{background:var(--violet)}
+.dot-daily{background:var(--teal)}
+.bp-title{font-size:15px;font-weight:500;color:var(--ink)}
+.bp-sub{font-size:12px;color:var(--muted);margin-top:2px}
+.bp-arrow{font-size:11px;color:var(--muted);transition:transform 0.2s}
+.bp-section.open .bp-arrow{transform:rotate(180deg)}
+.bp-body{display:none;padding:0 18px 18px;border-top:1px solid var(--border)}
+.bp-section.open .bp-body{display:block}
+.bp-content{font-size:14px;line-height:1.9;color:#4a3555;padding-top:16px;white-space:pre-wrap}
+
+.anchor-box{margin-top:18px;padding:22px 24px;background:var(--plum);border-radius:14px}
+.anchor-label{font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.5);margin-bottom:12px;font-weight:500}
+.anchor-text{font-family:'Playfair Display',serif;font-size:17px;font-style:italic;line-height:1.8;color:var(--white)}
+
+.restart-btn{width:100%;margin-top:12px;padding:13px;background:transparent;border:1px solid var(--border);border-radius:11px;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--muted);cursor:pointer;transition:all 0.2s}
+.restart-btn:hover{border-color:var(--plum);color:var(--plum)}
+</style>
+</head>
+<body>
+<div class="app">
+
+  <div class="screen active" id="screen-intro">
+    <div class="brand-mark">The Innermost Bond Blueprint</div>
+    <h1 class="intro-title">Built around <em>you</em> —<br>not the other way around.</h1>
+    <p class="intro-body">There's no box to fit into here. You'll answer a few honest questions about where you are, what you feel, and what you're ready for. Then your blueprint gets built — specifically, completely, only for you.</p>
+    <div class="intro-quote">"Your mind, body + soul don't need to be fixed. They need to be heard. This is how we start."</div>
+    <button class="btn-start" onclick="startJourney()">I'm ready — let's go →</button>
+  </div>
+
+  <div class="screen" id="screen-questions">
+    <div class="progress-wrap">
+      <div class="progress-meta">
+        <span class="progress-step" id="prog-step">Question 1 of 8</span>
+        <span class="progress-pct" id="prog-pct">0%</span>
+      </div>
+      <div class="progress-track"><div class="progress-fill" id="prog-fill" style="width:0%"></div></div>
+    </div>
+    <div id="q-container"></div>
+    <div class="q-nav">
+      <button class="btn-back" id="btn-back" onclick="prevQ()">← Back</button>
+      <button class="btn-next" id="btn-next" onclick="nextQ()" disabled>Continue →</button>
+    </div>
+  </div>
+
+  <div class="screen" id="screen-result">
+    <div class="result-eyebrow">Your Innermost Bond Blueprint</div>
+    <div class="result-name" id="result-name"></div>
+    <div class="result-essence" id="result-essence"></div>
+    <div id="reflection-wrap"></div>
+    <div id="result-sections"></div>
+    <div class="anchor-box">
+      <div class="anchor-label">Your anchor truth</div>
+      <div class="anchor-text" id="result-anchor"></div>
+    </div>
+    <button class="restart-btn" onclick="restart()">Start over — answer differently</button>
+  </div>
+
+</div>
+<script>
+var QUESTIONS = [
+  {id:'feeling',pillar:'you',pillarLabel:'Starting with you',text:'When you close your eyes and imagine feeling completely free — what does that feel like in your body?',sub:'There\'s no wrong answer. Trust your first instinct.',type:'choice',choices:['Light. Like I can breathe without permission.','Grounded. Steady and rooted in myself.','Expansive. Like nothing is too big to dream.','Calm. Like the noise finally stops.','Alive. Fully present and lit up inside.']},
+  {id:'external',pillar:'mind',pillarLabel:'The mind',text:'Where does seeking validation show up most in your life right now?',sub:'Be honest with yourself — this is just for you.',type:'choice',choices:['In relationships — I need people to approve of my choices.','At work or creatively — I hesitate until someone validates my ideas.','In how I look — my confidence depends on how others see me.','In my decisions — I second-guess myself until I get confirmation.','It\'s subtle — I don\'t always notice it happening.']},
+  {id:'innerVoice',pillar:'mind',pillarLabel:'The mind',text:'What does the loudest voice in your head usually say when you\'re about to do something brave?',sub:'The one that tries to pull you back.',type:'open',placeholder:'Write what it actually says — even if it\'s harsh...'},
+  {id:'bodyRelationship',pillar:'body',pillarLabel:'The body',text:'How would you describe your relationship with your body right now?',sub:'Not what you want it to be — what it actually is today.',type:'choice',choices:['We\'re in a battle. I push it and it pushes back.','We\'re strangers. I live in my head more than my body.','We\'re learning each other. Slowly coming back together.','We have a truce — I do the basics and ask for no trouble.','We\'re connected. I feel at home here.']},
+  {id:'bodyNeed',pillar:'body',pillarLabel:'The body',text:'What does your body ask for that you keep not giving it?',sub:'Rest, movement, nourishment, stillness, touch — what keeps getting pushed to last?',type:'open',placeholder:'Be specific if you can...'},
+  {id:'soulBlock',pillar:'soul',pillarLabel:'The soul',text:'What is the thing — the real thing — you\'ve been carrying that weighs the most?',sub:'You don\'t have to explain it. Just name it, even privately.',type:'open',placeholder:'It could be a feeling, a story, a fear, something you\'ve never said out loud...'},
+  {id:'soulWant',pillar:'soul',pillarLabel:'The soul',text:'If no one was watching and no one could judge you — what would you let yourself want?',sub:'The version of your life that your soul actually craves.',type:'open',placeholder:'Write it without qualifying it...'},
+  {id:'readiness',pillar:'you',pillarLabel:'Your readiness',text:'Where are you starting from right now — really?',sub:'This shapes the pace and tone of your entire blueprint.',type:'choice',choices:['I\'m in the middle — some days I believe, some days I don\'t.','I\'m tired of the cycle but I don\'t know where to begin.','I\'m ready and I\'ve been waiting for something structured to hold onto.','I\'m scared but I\'m choosing to show up anyway.','I\'m just beginning to realize something needs to shift.']}
+];
+
+var current = 0, answers = {};
+
+function startJourney(){ showScreen('screen-questions'); renderQ(); }
+function showScreen(id){ document.querySelectorAll('.screen').forEach(function(s){ s.classList.remove('active'); }); document.getElementById(id).classList.add('active'); window.scrollTo(0,0); }
+
+function renderQ(){
+  var q = QUESTIONS[current];
+  var pct = Math.round((current / QUESTIONS.length) * 100);
+  document.getElementById('prog-step').textContent = 'Question ' + (current+1) + ' of ' + QUESTIONS.length;
+  document.getElementById('prog-pct').textContent = pct + '%';
+  document.getElementById('prog-fill').style.width = pct + '%';
+  document.getElementById('btn-back').style.display = current === 0 ? 'none' : 'block';
+  var html = '<div class="q-pillar pillar-' + q.pillar + '">' + q.pillarLabel + '</div>';
+  html += '<div class="q-text">' + q.text + '</div>';
+  html += '<div class="q-sub">' + q.sub + '</div>';
+  if(q.type === 'choice'){
+    html += '<div class="choices">';
+    q.choices.forEach(function(c){
+      var sel = answers[q.id] === c ? ' selected' : '';
+      html += '<button class="choice' + sel + '" onclick="selectChoice(this,\'' + q.id + '\')" data-val="' + encodeURIComponent(c) + '">' + c + '</button>';
+    });
+    html += '</div>';
+  } else {
+    var val = answers[q.id] || '';
+    html += '<textarea class="open-textarea" rows="4" placeholder="' + q.placeholder + '" id="open-input" oninput="captureOpen(\'' + q.id + '\',this.value)">' + val + '</textarea>';
+  }
+  document.getElementById('q-container').innerHTML = html;
+  updateNextBtn();
+}
+
+function selectChoice(el, qid){
+  document.querySelectorAll('.choice').forEach(function(c){ c.classList.remove('selected'); });
+  el.classList.add('selected');
+  answers[qid] = decodeURIComponent(el.getAttribute('data-val'));
+  updateNextBtn();
+}
+function captureOpen(qid, val){ answers[qid] = val; updateNextBtn(); }
+function updateNextBtn(){
+  var q = QUESTIONS[current];
+  var filled = q.type === 'choice' ? !!answers[q.id] : (answers[q.id] || '').trim().length > 2;
+  document.getElementById('btn-next').disabled = !filled;
+  document.getElementById('btn-next').textContent = current === QUESTIONS.length - 1 ? 'Build my blueprint →' : 'Continue →';
+}
+function nextQ(){ if(current < QUESTIONS.length - 1){ current++; renderQ(); } else { buildBlueprint(); } }
+function prevQ(){ if(current > 0){ current--; renderQ(); } }
+
+// ── SCORING ──
+function getArchetype(r){
+  if(r === 'I\'m ready and I\'ve been waiting for something structured to hold onto.') return 'expansion';
+  if(r === 'I\'m just beginning to realize something needs to shift.' || r === 'I\'m tired of the cycle but I don\'t know where to begin.') return 'awakening';
+  return 'bridge';
+}
+function getMindVariant(e){
+  if(e === 'In relationships — I need people to approve of my choices.' || e === 'In how I look — my confidence depends on how others see me.') return 'others';
+  if(e === 'It\'s subtle — I don\'t always notice it happening.') return 'ambient';
+  return 'work';
+}
+function getBodyVariant(b){
+  if(b === 'We\'re in a battle. I push it and it pushes back.' || b === 'We\'re strangers. I live in my head more than my body.') return 'disconnected';
+  if(b === 'We\'re connected. I feel at home here.') return 'connected';
+  return 'rebuilding';
+}
+function getSoulVariant(f){
+  if(f === 'Light. Like I can breathe without permission.' || f === 'Calm. Like the noise finally stops.') return 'permission';
+  if(f === 'Grounded. Steady and rooted in myself.') return 'stillness';
+  return 'expansion';
+}
+
+// ── CONTENT LIBRARY ──
+var NAMES = {
+  awakening: { permission: 'The First Breath In', expansion: 'She\'s Beginning to Bloom', stillness: 'Rooting Before Rising' },
+  bridge:    { permission: 'Learning to Need Less', expansion: 'The Woman Becoming', stillness: 'Finding Ground Mid-Journey' },
+  expansion: { permission: 'She Who Permits Herself', expansion: 'The Full Becoming', stillness: 'Rooted and Ready' }
+};
+
+var ESSENCES = {
+  awakening: {
+    permission: 'You\'re at the beginning — and that\'s not a small thing. The fact that something inside you said "something needs to shift" is the shift already starting. What you\'re building here isn\'t a new version of you. It\'s the most honest version of you, learning to breathe without asking for permission first. One step. That\'s all this is.',
+    expansion: 'You\'re at the beginning of something you can already feel but not yet name. That expansive thing you described — the sense that nothing should be too big to dream — is real. It\'s not wishful thinking. It\'s your soul telling you what\'s available. This blueprint builds the ground beneath that feeling so it has somewhere to land.',
+    stillness: 'You\'re at the start, and what your soul is reaching for is steadiness — to feel rooted inside yourself regardless of what\'s happening around you. That desire for stillness, for the noise to stop, tells us something important: you\'ve been living in reaction. This blueprint begins with slowing down before building up. The root comes first.'
+  },
+  bridge: {
+    permission: 'You know what it feels like to almost believe in yourself — and you know what it feels like when that belief collapses. The in-between is exhausting because you\'re doing double the work: moving forward and fighting the pull backward at the same time. What shifts now is this: you stop waiting for permission to trust what you already know.',
+    expansion: 'You\'re in the in-between — and the woman you\'re becoming lives on the other side of it. The expansive, fully alive version of yourself that you can feel isn\'t a fantasy. She\'s the truth of you that hasn\'t had the right conditions to take up space yet. This blueprint builds those conditions, one honest practice at a time.',
+    stillness: 'You\'re mid-journey and what your soul is asking for is ground. Not answers — ground. The steadiness you\'re seeking isn\'t about having it all figured out. It\'s about trusting yourself enough that the doubt doesn\'t derail you. This blueprint meets you in the middle and builds an anchor you can return to every single time you feel yourself wavering.'
+  },
+  expansion: {
+    permission: 'You\'re ready — and the readiness you feel is real. What\'s been missing isn\'t more information or more time. It\'s a structure that takes you as seriously as you\'re finally taking yourself. The permission you\'ve been waiting for? It was never coming from outside. This blueprint makes that undeniable.',
+    expansion: 'You\'ve been ready. The vision is clear, the desire is alive, the knowing is there — what you\'ve needed is a container that matches your readiness. This blueprint is that container. It doesn\'t shrink what you want or ask you to be reasonable. It builds the innermost bond that makes the full becoming possible.',
+    stillness: 'You\'re ready and your soul knows it. The groundedness you\'re moving toward — steady, rooted, unshakeable — is the foundation everything else gets built on. This blueprint honors that. It doesn\'t rush you toward the external results. It deepens the internal ones first, so when you move, you move from a place nothing can knock over.'
+  }
+};
+
+var MIND = {
+  awakening: {
+    others: 'The voice that keeps looking to others for the green light has been doing its job — keeping you safe, keeping you connected. But it\'s costing you your own knowing.\n\nStart here: before you ask anyone what they think, write your own answer first. One sentence, even messy. Then notice what your body does when you read it back. That\'s the beginning of trusting yourself.\n\nThis week — make one small decision daily without consulting anyone. Low stakes, on purpose. You\'re building a muscle. The external approval you\'ve been reaching for will slowly become less necessary as your own voice gets louder.',
+    work: 'The hesitation before sharing, before acting without confirmation — that\'s not self-doubt. That\'s a worthiness wound dressed up as caution. The inner critic that shows up right before you move is trying to protect you from being seen and falling short. But staying hidden has its own cost.\n\nStart here: write one idea down this week that you haven\'t shared with anyone. Don\'t send it. Let it exist on paper as yours first. Notice how it feels when it doesn\'t need anyone\'s approval to be real.\n\nThat feeling is the beginning of creating from the inside out.',
+    ambient: 'The validation-seeking that runs quietly in the background — the kind you don\'t always catch — is often the most powerful kind. It shapes decisions you think you\'re making freely.\n\nYour practice this week is simple: at the end of each day, ask yourself one question — "Whose voice was loudest in my decisions today — mine or someone else\'s?" No judgment. Just noticing.\n\nAwareness is the first act of reclaiming your own mind. You can\'t change what you can\'t see, and you\'re beginning to see.'
+  },
+  bridge: {
+    others: 'You already know the approval-seeking pattern. You\'ve probably already started to see it clearly. The work now isn\'t awareness — it\'s the practice of staying with your own answer even when the pull to check is strong.\n\nName it when it comes: "I want to check. I\'m choosing to sit with my own knowing instead." Say it out loud. Do it enough times and the pull weakens.\n\nYour opinion of yourself is becoming the one that matters. Every time you act from that — even in small moments — you\'re rewiring the whole system.',
+    work: 'You\'re at the stage where you can catch yourself waiting for validation before you act. The bridge practice here is acting before the confirmation arrives.\n\nBefore you share anything this week, say to yourself: "I believe this is worth putting into the world." After you share, notice — whose response are you holding your breath for? That person holds a mirror to where you\'re still leaking your power.\n\nTake it back. One act at a time. The goal isn\'t indifference to feedback — it\'s moving before you need it.',
+    ambient: 'The subtle pull of external validation is tricky because it doesn\'t announce itself — it quietly shapes what you say yes to, what you dim down, what you keep hidden.\n\nYour practice right now is building a pause between impulse and action. Before you agree to something, before you soften your position, ask: "Is this what I actually want and think — or am I managing someone else\'s reaction?"\n\nThat question, asked consistently, rewires everything. The goal is a life built on your own discernment.'
+  },
+  expansion: {
+    others: 'You\'re ready to stop performing your choices for the people around you — and that readiness is the shift.\n\nThe practice now is building your internal reference point so strong that external approval becomes irrelevant, not something you\'re still fighting.\n\nDaily: after any significant interaction, check in with yourself before you check your phone. Ask: "What do I actually think about what just happened?" Let your answer come first. Every time you do this, you\'re choosing yourself. Do it consistently enough and it becomes who you are.',
+    work: 'You\'re ready to move without waiting for confirmation — and the practice that supports that is completing the creative or business act fully before seeking any feedback.\n\nFinish the thought. Write the post. Make the offer. Then evaluate. The validation-seeking that interrupts the process is what you\'re training out of the system now.\n\nReplace it with this: "I trust my discernment. I act from that trust. I refine from evidence — not from fear." Say that before every significant creative act. Mean it.',
+    ambient: 'The ambient static of seeking approval runs quietly enough that dismantling it is a daily practice, not a one-time decision.\n\nEach morning this week: write one thing you know to be true about yourself without needing anyone to confirm it. Over time, this list becomes your internal reference library — the thing you return to when the outside world gets loud.\n\nYour expansion lives in the gap between their opinion and your own knowing. Widen that gap every single day.'
+  }
+};
+
+var BODY = {
+  awakening: {
+    disconnected: 'Your body and you have been in a complicated relationship — maybe a battle, maybe estrangement. Before anything else, this blueprint asks you to call a ceasefire. Not to fix anything. Not to change anything. Just to stop treating your body as something to manage.\n\nThis week: place one hand on your chest each morning before you get up. Five breaths. That\'s it. You\'re not doing anything to your body — you\'re just saying "I\'m here."\n\nThat\'s where the bond begins. Not with discipline or a new routine — with presence. Your body has been waiting for you to arrive.',
+    rebuilding: 'You\'re already in the process of learning your body again — and that matters more than you know. The fact that you\'re aware of the distance and moving toward closing it means the hardest part is already behind you.\n\nYour practice: one daily moment of tuning in without judgment. Ask your body one question — "What do you need right now?" — and sit with whatever comes. Not to fix it. Just to hear it.\n\nYou\'re building a conversation, not a protocol. The relationship develops through showing up, consistently, with no agenda other than listening.',
+    connected: 'You already have a relationship with your body — that\'s a genuine foundation. Your practice is about deepening and protecting that connection as the inner work gets more demanding.\n\nWhen things get harder emotionally, the body takes the hit first. Notice that. Add one grounding practice before any emotionally demanding moment: three deep breaths, feet flat on the floor, one hand on your heart.\n\nYou\'re teaching your body it\'s safe to stay present with you through the hard parts — not just the easy ones.'
+  },
+  bridge: {
+    disconnected: 'The battle or distance between you and your body takes energy that could be going toward the life you\'re building. The bridge practice here isn\'t about loving your body overnight. It\'s about introducing neutrality first.\n\nCan you be in your body without judgment, even for five minutes? Walk without headphones. Eat without a screen. Stretch without a goal.\n\nPresence before appreciation — that\'s the sequence. You can\'t fall back in love with something you\'re still avoiding. Start by just being there.',
+    rebuilding: 'You\'re in the rebuilding phase — which means some days the connection feels close and some days it disappears again. That\'s not failure. That\'s what rebuilding actually feels like.\n\nYour practice: anchor the connection to one consistent daily moment so it doesn\'t rely on how you feel that day. A morning stretch before your feet hit the floor — even 60 seconds.\n\nYou\'re creating a ritual of return, not a performance of wellness. The returning is the practice. Every time you come back matters more than never leaving.',
+    connected: 'You\'re connected to your body — that\'s not small and it\'s not to be taken for granted during deep inner work.\n\nProtect it. Use your body as your first barometer: when something feels off in your life, check your body before you analyze it in your head. Where is the tension? What is the weight? Where does something feel open or closed?\n\nYour body often knows what your mind is still trying to rationalize. Start consulting it first.'
+  },
+  expansion: {
+    disconnected: 'You\'re ready to do the work — and the body integration is where it lands and becomes real. The mind can decide to change. The body is where change actually lives.\n\nIf there\'s still distance or battle between you and your body, the most important work right now is bridging it — not by forcing love but by showing up with consistent, simple respect.\n\nOne daily act of pure nourishment: not exercise as punishment, not food as control. A walk that has nothing to prove. A warm meal eaten slowly. A body that feels respected will carry you further than one that feels managed.',
+    rebuilding: 'Your body is in the process of coming home to you — and your readiness to do this work is exactly the energy that completes that return.\n\nBring the body fully into your transformation: before any significant decision, check in somatically. Where does this feel in my body — expansion or contraction? Rightness or resistance?\n\nYour body\'s intelligence is one of your most powerful tools and you\'re ready to start using it. Let it have a vote in everything that matters.',
+    connected: 'The connection you have with your body is one of your greatest assets right now — and it\'s meant to be activated fully.\n\nBefore important conversations: center in your body first. After demanding interactions: discharge through movement or breath. Treat your body as the primary site of transformation — because it is.\n\nEverything you\'re shifting in your mind and soul lands in the body first. Keep that channel clear and responsive.'
+  }
+};
+
+var SOUL = {
+  awakening: {
+    permission: 'The freedom you\'re reaching for — breathing without permission — points directly at the work your soul is ready for. You\'ve been asking, consciously or not, for someone to say it\'s okay to be fully yourself.\n\nThe soul practice here is starting to give yourself that permission in small doses. Write one thing you want — no qualifier, no "but," no apology. Let it exist without justification.\n\nNotice the discomfort. That discomfort is the permission muscle developing. What you\'re carrying doesn\'t have to be resolved before you begin. Write it down, then write underneath: "I am allowed to put this down."',
+    expansion: 'The expansive feeling you described — nothing too big to dream — is your soul showing you what\'s true about you underneath everything you\'ve been told to be reasonable about.\n\nYour soul practice starts with letting yourself want without editing. Write what you actually want — the version your soul craves when no one\'s watching. Read it back without apologizing for the size of it.\n\nWhat you\'re carrying doesn\'t have to be resolved before you move toward it. You can hold the weight and move toward the dream at the same time. Both are true.',
+    stillness: 'The calm you\'re seeking — the quiet after the noise — is your soul asking for a different relationship with stillness. Not emptiness. Presence.\n\nYour soul practice: five minutes of silence each morning before any input enters. No phone, no music, no voices from outside. Just you. It will feel uncomfortable at first. That discomfort is your nervous system learning that stillness is safe.\n\nWhat you\'re carrying gets lighter in silence — not because you solved it, but because you finally stopped running from it.'
+  },
+  bridge: {
+    permission: 'You\'ve tasted the freedom of breathing without permission and you\'ve felt it collapse when the doubt came back. The soul work at this stage is making permission a daily practice — not a feeling you wait for, but an act you choose.\n\nEach morning, say out loud: "I give myself permission to take up exactly as much space as I actually need." Then do one thing that honors that — something small, real, unchoreographed.\n\nThe thing you want when no one\'s watching? Write it. Then ask: what\'s one step toward it that requires no one\'s blessing but mine?',
+    expansion: 'You\'re in the middle of becoming — and the soul work here is staying connected to the vision even when the in-between feels long.\n\nYour practice: write the "no audience" want every single week. The thing your soul craves, free of performance. Read last week\'s version before writing this week\'s. Watch it evolve.\n\nThat evolution is you becoming. What you\'ve been carrying belongs to the version of you that needed it to survive. You\'re building the version who doesn\'t need it anymore.',
+    stillness: 'You\'re seeking ground — and the soul work that builds it is about creating an inner home you can return to regardless of what\'s happening outside.\n\nEnd each day with one honest sentence: "Today I felt ___." Not how you should feel. How you actually feel. No resolution required. Just truth.\n\nWhat you\'re carrying will begin to lighten when it\'s acknowledged daily rather than avoided. Stillness isn\'t the absence of weight. It\'s being steady enough to hold it without being crushed by it.'
+  },
+  expansion: {
+    permission: 'You\'re ready to live permission as a way of being — not something you grant yourself in special moments, but the ground you stand on always.\n\nAny time you catch yourself waiting for a sign, an approval, a right time — say: "I am my own sign." Then act.\n\nThe thing you want when no one\'s watching? It\'s time to start living toward it out loud — at least in your journal first. Write it as if it\'s already true: "I am a woman who ___." Your soul already knows who that is. This practice makes her undeniable.',
+    expansion: 'You\'re ready for the full becoming — and the soul work that supports that is releasing the last layers of shrinking.\n\nWeekly: write the uncensored vision. The full life. No reasonable version of it. The one your soul reaches for in the quiet. Then identify one thing in your current life that contradicts it — and consciously release it or shift it.\n\nWhat you\'ve been carrying? It\'s not yours anymore. Name it, thank it for what it protected you from, and put it down. You are not the same woman who picked it up.',
+    stillness: 'The groundedness you\'re moving toward is a soul state — a deep inner rootedness that makes external noise irrelevant.\n\nYour practice: one daily moment of pure presence with yourself. Sit. Breathe. Ask: "What is true about me that doesn\'t change?" Write the answer. Over time this becomes your bedrock — the thing everything else gets built on top of.\n\nWhat you want when no one\'s watching? That\'s the blueprint. Build toward it from the ground up. Rooted things don\'t blow over.'
+  }
+};
+
+var RITUALS = {
+  awakening: 'Morning — Before your feet hit the floor: one hand on your heart, three breaths, one word for how you\'re arriving today. Just one word. No elaboration. This is you checking in with yourself before the world gets a turn.\n\nMidday — A single pause. Step away from whatever you\'re doing and ask: "Am I still with myself right now, or did I give myself away somewhere this morning?" No judgment. Just notice. Return.\n\nEvening — Write three things: one thing that was hard today, one thing that was true, one thing you\'re releasing before you sleep. No full sentences needed. This is a private clearing — not a report to anyone.',
+  bridge: 'Morning — Your morning intention is not a to-do. It\'s a way of being. Say out loud: "Today I am choosing to trust myself even when I don\'t feel certain." Your nervous system needs to hear your own voice say it. Then begin.\n\nMidday — A body check-in. Pause, notice where you\'re holding tension, breathe into that place three times. Then ask: "Am I moving from fear right now, or from choice?" Adjust accordingly — even slightly.\n\nEvening — Write one win: something you did today that your past self wouldn\'t have. One sentence. Then write: "I am becoming." That\'s it. That\'s the whole practice. That\'s enough.',
+  expansion: 'Morning — Five minutes before anything else enters: sit with your vision — the full one, uncensored. Feel it in your body. Then set one intention for how you\'ll honor it today. Not a task — a way of being that aligns with who you\'re becoming.\n\nMidday — A permission check: "Have I given myself full permission today, or have I been managing someone else\'s comfort?" If the answer is the latter, one honest act of course correction. Right now.\n\nEvening — Journal this: "What did I do today that was completely, unapologetically mine?" Then close the day with gratitude for the woman you are right now — not the one you\'ll be someday. The one who showed up today.'
+};
+
+var ANCHORS = {
+  awakening: {
+    permission: 'The permission you\'ve been waiting for was always yours to give.',
+    expansion: 'What you feel in the quiet moments about what\'s possible — that\'s not fantasy, that\'s direction.',
+    stillness: 'You don\'t have to have it figured out to begin — you only have to be willing to be still enough to hear yourself.'
+  },
+  bridge: {
+    permission: 'You already know — you\'ve just been waiting for someone else to confirm what you know.',
+    expansion: 'The woman you\'re becoming is already looking back at you from the other side of the doubt — and she kept going.',
+    stillness: 'The ground you\'re standing on is steadier than the noise makes it feel.'
+  },
+  expansion: {
+    permission: 'You are the authority on your own life — act like it.',
+    expansion: 'You were never too much — you were just in spaces too small for what you carry.',
+    stillness: 'When you are rooted in yourself, nothing from the outside can uproot you.'
+  }
+};
+
+var MIND_SUBTITLES = {
+  awakening: { others: 'Releasing the approval loop', work: 'Moving before the confirmation arrives', ambient: 'Catching the invisible pattern' },
+  bridge:    { others: 'Choosing your own knowing', work: 'Acting before the validation', ambient: 'Building the pause that changes everything' },
+  expansion: { others: 'Your opinion becomes the one that matters', work: 'Creating from trust, not fear', ambient: 'Widening the gap between their opinion and yours' }
+};
+var BODY_SUBTITLES = {
+  awakening: { disconnected: 'Calling the ceasefire', rebuilding: 'Building the conversation', connected: 'Deepening through the hard parts' },
+  bridge:    { disconnected: 'Presence before appreciation', rebuilding: 'The ritual of return', connected: 'Your body as first barometer' },
+  expansion: { disconnected: 'Respect before love', rebuilding: 'Completing the homecoming', connected: 'Activating your most powerful tool' }
+};
+var SOUL_SUBTITLES = {
+  awakening: { permission: 'The permission muscle', expansion: 'Letting yourself want', stillness: 'Learning that stillness is safe' },
+  bridge:    { permission: 'Permission as daily practice', expansion: 'Staying connected to the vision', stillness: 'Building your inner home' },
+  expansion: { permission: 'Living permission as identity', expansion: 'Releasing the last layers', stillness: 'Building the bedrock' }
+};
+
+function buildBlueprint(){
+  var a = getArchetype(answers.readiness);
+  var m = getMindVariant(answers.external);
+  var b = getBodyVariant(answers.bodyRelationship);
+  var s = getSoulVariant(answers.feeling);
+
+  document.getElementById('result-name').textContent = NAMES[a][s];
+  document.getElementById('result-essence').textContent = ESSENCES[a][s];
+  document.getElementById('result-anchor').textContent = '\u201C' + ANCHORS[a][s] + '\u201D';
+
+  // Reflection block — weave in open text answers
+  var reflections = [];
+  if(answers.innerVoice && answers.innerVoice.trim()) reflections.push({label:'The voice you named', text:answers.innerVoice.trim()});
+  if(answers.bodyNeed && answers.bodyNeed.trim()) reflections.push({label:'What your body is asking for', text:answers.bodyNeed.trim()});
+  if(answers.soulBlock && answers.soulBlock.trim()) reflections.push({label:'What you\'ve been carrying', text:answers.soulBlock.trim()});
+  if(answers.soulWant && answers.soulWant.trim()) reflections.push({label:'What you want when no one\'s watching', text:answers.soulWant.trim()});
+
+  var refHtml = '';
+  if(reflections.length > 0){
+    refHtml = '<div class="reflection-block"><div class="reflection-label">What you brought into this room</div>';
+    reflections.forEach(function(r){
+      refHtml += '<div class="reflection-item"><span>' + r.label + '</span>' + r.text + '</div>';
+    });
+    refHtml += '</div>';
+  }
+  document.getElementById('reflection-wrap').innerHTML = refHtml;
+
+  var sections = [
+    {dot:'dot-mind', title:NAMES[a][s].split(' ')[0] + ' — Your mind practice', sub:MIND_SUBTITLES[a][m], content:MIND[a][m]},
+    {dot:'dot-body', title:'Your body practice', sub:BODY_SUBTITLES[a][b], content:BODY[a][b]},
+    {dot:'dot-soul', title:'Your soul practice', sub:SOUL_SUBTITLES[a][s], content:SOUL[a][s]},
+    {dot:'dot-daily',title:'Your daily ritual', sub:RITUALS[a].split('\n')[0].replace('Morning — ','Paced to where you are'), content:RITUALS[a]},
+  ];
+
+  var html = '';
+  sections.forEach(function(sec, i){
+    html += '<div class="bp-section' + (i===0?' open':'') + '" id="sec-' + i + '">';
+    html += '<button class="bp-toggle" onclick="toggleSection(' + i + ')">';
+    html += '<div class="bp-toggle-left"><div class="bp-dot ' + sec.dot + '"></div>';
+    html += '<div><div class="bp-title">' + sec.title + '</div><div class="bp-sub">' + sec.sub + '</div></div></div>';
+    html += '<div class="bp-arrow">&#9660;</div></button>';
+    html += '<div class="bp-body"><div class="bp-content">' + sec.content + '</div></div></div>';
+  });
+  document.getElementById('result-sections').innerHTML = html;
+  showScreen('screen-result');
+}
+
+function toggleSection(i){ document.getElementById('sec-'+i).classList.toggle('open'); }
+function restart(){ current=0; answers={}; showScreen('screen-intro'); }
+</script>
+</body>
+</html>
